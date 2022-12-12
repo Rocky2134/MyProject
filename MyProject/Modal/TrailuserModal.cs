@@ -17,4 +17,19 @@ namespace MyProject.Modal
         public string dtDateOfReg { get; set; } 
         public int iIsactive { get; set; } 
     }
+
+    public class Response
+    {
+        public string message { get; set; }
+        public string userID { get; set; }
+        public int status { get; set; }
+        public int mobileOTP { get; set; }
+        public int emailOTP { get; set; }
+    }
+    public class VerificationRequest
+    {
+        public string userID { get; set; }
+        public string verificationType { get; set; }
+       
+    }
 }

@@ -12,6 +12,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Net.Mail;
 using System.Net;
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
+using System.Threading;
 
 namespace MyProject.Helper
 {
@@ -141,9 +144,10 @@ namespace MyProject.Helper
             return userTypes;
         }
 
-        public static string saveUserDetails(TrailuserModal modal)
+        public static Response saveUserDetails(TrailuserModal modal)
         {
-            var status = "";
+            Response response = new Response();
+
             SqlParameter[] param = new SqlParameter[6];
             param[0] = new SqlParameter("@sName", modal.sName);
             param[1] = new SqlParameter("@sPincode", modal.sPincode);
@@ -155,13 +159,32 @@ namespace MyProject.Helper
             DataSet ds = FillDataSet("[dbo].[USP_SaveTrailuser]", param);
             if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
             {
-                SendMail(new SendEmail { Username = modal.sEmailId, Password = modal.sPassword, Message = "Registration", RecieverDisplayName = modal.sName, RecieverEmailID = modal.sEmailId });
-                
-                status = ds.Tables[0].Rows[0]["Message"].ToString();
+                response.status = Convert.ToInt32(ds.Tables[0].Rows[0]["StatusCode"]);
+                response.message = ds.Tables[0].Rows[0]["Message"].ToString();
+                response.userID = ds.Tables[0].Rows[0]["UserID"].ToString();
+                response.mobileOTP = GetOTP();
+                response.emailOTP = GetOTP();
+                SendMail(new SendEmail { Message = "EmailOTP", RecieverDisplayName = modal.sName, RecieverEmailID = modal.sEmailId,emailOTP= response.emailOTP,mobileOTP= response.mobileOTP });
             }
+            return response;
+        }
+        
+        public static Response UpadteVerificationStatus(VerificationRequest modal)
+        {
+            Response response = new Response();
 
-
-            return status;
+            SqlParameter[] param = new SqlParameter[2];
+            param[0] = new SqlParameter("@usrID", modal.userID);
+            param[1] = new SqlParameter("@type", modal.verificationType);
+         
+            DataSet ds = FillDataSet("[dbo].[USP_ADMIN_UpdateVerificationStatus_Update]", param);
+            if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+            {
+                response.status = Convert.ToInt32(ds.Tables[0].Rows[0]["StatusCode"]);
+                response.message = ds.Tables[0].Rows[0]["Message"].ToString();
+                //SendMail(new SendEmail { Message = "EmailOTP", RecieverDisplayName = modal.sName, RecieverEmailID = modal.sEmailId,emailOTP= response.emailOTP,mobileOTP= response.mobileOTP });
+            }
+            return response;
         }
 
         public static string SendMail(SendEmail email, string partyID = "")
@@ -186,8 +209,12 @@ namespace MyProject.Helper
                 if (email.Message == "Registration")
                 {
                     sub = "New Registration";
-                    text = "<div>Hello Dear " + email.RecieverDisplayName + ",<br/><br/>Your Account has been created and under varification soon your account will be activated be patient<br/></div><br/>Click here to login :<a href='" + sendEmailSetting.URLToBeSendLogin + "'>Login Here</a> <br/><br/><table border=1 cellpadding=12 width=60%><tr><td>Username</td><td><b>" + email.Username + "</b></td></tr><tr><td>Password</td><td><b>" + email.Password + "</b></td></tr></table><br/><br/>Thanks,<br/> Team Smart Ensure";
-
+                    text = $"<div>Hello Dear {email.RecieverDisplayName}, <br/><br/>Your Account has been created and under varification soon your account will be activated be patient<br/></div><br/>Click here to login :<a href='{sendEmailSetting.URLToBeSendLogin}'>Login Here</a> <br/><br/><table border=1 cellpadding=12 width=60%><tr><td>Username</td><td><b>{email.Username}</b></td></tr><tr><td>Password</td><td><b>{email.Password}</b></td></tr></table><br/><br/>Thanks,<br/> Team Smart Ensure";
+                }
+                if (email.Message == "EmailOTP")
+                {
+                    sub = "Email Verification";
+                    text = $"<div>Hello Dear {email.RecieverDisplayName}, <br/><br/>Your varification code : {email.emailOTP}, Please Verify.....<br/></div><br/><br/>Thanks,<br/> Team Smart Ensure";
                 }
                 var body = text;
                 var smtp = new SmtpClient
@@ -215,6 +242,12 @@ namespace MyProject.Helper
                 throw ex;
             }
         }
+        public static int GetOTP(int noOfDigits=4)
+        {
+            Random rnd = new Random();
+            Thread.Sleep(1500);
+            return rnd.Next((int)Math.Pow(10, (noOfDigits - 1)), (int)Math.Pow(10, noOfDigits) - 1);
+        }
         public static string Encrypt(string clearText)
         {
             string EncryptionKey = "KMDRE23870FDR3S";
@@ -236,7 +269,6 @@ namespace MyProject.Helper
             }
             return clearText;
         }
-
         public static string Decrypt(string cipherText)
         {
             string EncryptionKey = "KMDRE23870FDR3S";
