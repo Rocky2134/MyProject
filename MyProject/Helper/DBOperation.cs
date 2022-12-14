@@ -164,11 +164,11 @@ namespace MyProject.Helper
                 response.userID = ds.Tables[0].Rows[0]["UserID"].ToString();
                 response.mobileOTP = GetOTP();
                 response.emailOTP = GetOTP();
-                SendMail(new SendEmail { Message = "EmailOTP", RecieverDisplayName = modal.sName, RecieverEmailID = modal.sEmailId,emailOTP= response.emailOTP,mobileOTP= response.mobileOTP });
+                SendMail(new SendEmail { Message = "EmailOTP", RecieverDisplayName = modal.sName, RecieverEmailID = modal.sEmailId, emailOTP = response.emailOTP, mobileOTP = response.mobileOTP });
             }
             return response;
         }
-        
+
         public static Response UpadteVerificationStatus(VerificationRequest modal)
         {
             Response response = new Response();
@@ -176,7 +176,7 @@ namespace MyProject.Helper
             SqlParameter[] param = new SqlParameter[2];
             param[0] = new SqlParameter("@usrID", modal.userID);
             param[1] = new SqlParameter("@type", modal.verificationType);
-         
+
             DataSet ds = FillDataSet("[dbo].[USP_ADMIN_UpdateVerificationStatus_Update]", param);
             if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
             {
@@ -242,7 +242,7 @@ namespace MyProject.Helper
                 throw ex;
             }
         }
-        public static int GetOTP(int noOfDigits=4)
+        public static int GetOTP(int noOfDigits = 4)
         {
             Random rnd = new Random();
             Thread.Sleep(1500);
