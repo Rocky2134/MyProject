@@ -1,0 +1,382 @@
+﻿
+@{
+    ViewBag.Title = "Verification";
+    Layout = null;
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<!-- Bootstrap toggle -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-toggle/3.6.1/bootstrap4-toggle.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.15/sweetalert2.css" />
+
+<link href="~/Content/css/bootstrap-select.min.css" rel="stylesheet" />
+<!-- Bootstrap seclect -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap-select.min.css" />
+<!-- Price Range Slider -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap-slider.min.css" />
+<!-- Bootstrap data table -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/dataTables.bootstrap4.min.css">
+<!-- Dropzone -->
+@*<link rel="stylesheet" type="text/css" href="~/Content/css/dropzone.css">*@
+<!-- Fonts -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/font.css" />
+<!-- Feather icon -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/feather.css" />
+
+<!-- Lc light box popup -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/lc_lightbox.css" />
+<!-- Magnific Popup -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/magnific-popup.min.css">
+<!-- Custom Scrollbar -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/m-custom-scrollbar.min.css" />
+<!-- Owl Carousel -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/owl.carousel.min.css">
+<!-- Slick Carousel -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/slick.min.css">
+<!-- Slick Theme -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/slick-theme.css">
+
+<style type="text/css">
+    .spinner1 {
+        /*display: inline-block;*/
+        opacity: 0;
+        /*max-width: 0;*/
+        /*-webkit-transition: opacity 0.25s, max-width 0.45s;
+    -moz-transition: opacity 0.25s, max-width 0.45s;
+    -o-transition: opacity 0.25s, max-width 0.45s;
+    transition: opacity 0.25s, max-width 0.45s;*/ /* Duration fixed since we animate additional hidden width */
+    }
+
+    .has-spinner1.activeSpin {
+        cursor: progress;
+    }
+
+        .has-spinner1.activeSpin .spinner1 {
+            opacity: 1;
+            /*max-width: 50px;*/ /* More than it will ever come, notice that this affects on animation duration */
+        }
+</style>
+
+
+
+<button type="button" class="site-button" id="btnStartTrail" data-toggle="modal" data-target="#ThankYou" style="display:none;max-width: 300px !important;font-weight: 600;"><i class="fa fa-home"></i> Start 15 Days Trial</button>
+
+
+@*Modal*@
+<div class="modal fade" id="ThankYou" tabindex="-1" role="dialog" aria-labelledby="Thankyou" aria-hidden="true" style="display:none;" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Thankyou">Enter OTP</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <h2>Thank You</h2>
+                    <i class='far fa-3x fa-smile' style="color: #87b2d6"></i><br />
+                    <div style="margin-top: 20px;font-size:18px">
+                        Thank you for using our service. <br />
+                        Please enter the otp you recieved on provided mobile number and email address
+                    </div>
+                </div>
+                <hr />
+                <div style="width: 90%;margin: auto;border: none;">
+                    <div class="row">
+                        <div class="col-sm-6" style="border-right: 1px solid #cbcbcb;">
+                            <div class="row" style="display: flex; align-items: end;">
+                                <div class="col-sm-8">
+                                    <label class="form-label"><strong>Mobile OTP</strong></label>
+                                    <input type="text" class="form-control" oninput="numberOnly(this.id)" id="txtMobileOTP" placeholder="----" maxlength="4" style="width: 340px;">
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-primary" id="btnMverify" style="width: 140px;margin-left: -39px;-webkit-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);-moz-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);"> <i class='fa fa-check'></i> Verify</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="row" style="display: flex; align-items: end;">
+                                <div class="col-sm-8">
+                                    <label class="form-label"><strong>Email OTP</strong></label>
+                                    <input type="text" class="form-control" oninput="numberOnly(this.id)" id="txtEmailOTP" placeholder="----" maxlength="4" style="width: 340px;">
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-primary" id="btnEverify" style="width: 140px;margin-left: -39px;-webkit-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);-moz-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);"> <i class='fa fa-check'></i> Verify</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                @*<button type="button" class="btn btn-primary" onclick="clearAll(); gotoLogin();" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearAll(); gotoLogin();" data-dismiss="modal">Cancel</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Login Sign Up Modal -->
+<!-- JAVASCRIPT  FILES ========================================= -->
+<script src="/Content/js/jquery-3.6.0.min.js"></script><!-- JQUERY.MIN JS -->
+<script src="/Content/js/popper.min.js"></script><!-- POPPER.MIN JS -->
+<script src="/Content/js/bootstrap.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="/Content/js/bootstrap-select.min.js"></script><!-- BOOTSTRAP SELECT -->
+<script src="/Content/js/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
+<script src="/Content/js/magnific-popup.min.js"></script><!-- MAGNIFIC-POPUP JS -->
+<script src="/Content/js/waypoints.min.js"></script><!-- WAYPOINTS JS -->
+<script src="/Content/js/counterup.min.js"></script><!-- COUNTERUP JS -->
+<script src="/Content/js/waypoints-sticky.min.js"></script><!-- STICKY HEADER -->
+<script src="/Content/js/isotope.pkgd.min.js"></script><!-- MASONRY  -->
+
+<script src="/Content/js/owl.carousel.min.js"></script><!-- OWL  SLIDER  -->
+<script src="/Content/js/slick.min.js"></script><!-- OWL  SLIDER  -->
+
+<script src="/Content/js/theia-sticky-sidebar.js"></script><!-- STICKY SIDEBAR  -->
+<script src="/Content/js/m-custom-scrollbar.min.js"></script><!-- my account left panel scroller -->
+<script src="/Content/js/dropzone.js"></script><!-- Images upload -->
+
+<script src="/Content/js/bootstrap4-toggle.min.js"></script>
+<script src="/Content/js/jquery.dataTables.min.js"></script>
+<script src="/Content/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="/Content/js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
+<script src="/Content/js/lc_lightbox.lite.js"></script><!-- IMAGE POPUP -->
+<script src="/Content/js/bootstrap-slider.min.js"></script><!-- Form js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.15/sweetalert2.min.js"></script>
+
+<script type="text/javascript">
+    var verifyStatus = 0;
+    $(document).ready(function () {
+        setTimeout(function () {
+
+            $('#btnStartTrail').click();
+
+        }, 2000);
+    });
+
+    $('#btnEverify').click(function () {
+        alert(verifyStatus);
+        var h = '<span class="spinner1"><i class="fa fa-spinner fa-pulse"></i> Verifying</span>'
+
+        $('#btnEverify').addClass('has-spinner1').addClass('activeSpin');
+        $('#btnEverify').html('');
+        $('#btnEverify').html(h);
+
+
+
+        var detailsEmailOTP = getCookie('emailOTP');
+        var EmailRecievedOTP = detailsEmailOTP;
+        var EnteredOTP = $('#txtEmailOTP').val();
+        var userID = getCookie('userID');
+        if (EnteredOTP.length > 0) {
+
+            if (parseInt(EnteredOTP) == 0) {
+                Swal.fire({
+                    title: "Error",
+                    text: 'Invalid OTP..!',
+                    icon: "error",
+                    showCloseButton: true,
+                });
+                $('#txtEmailOTP').val('');
+                EnteredOTP = '';
+
+                $('#btnEverify').removeClass('has-spinner1').removeClass('activeSpin');
+                $('#btnEverify').html("<i class='fa fa-check'></i> Verify");
+
+            }
+            else if (EmailRecievedOTP != EnteredOTP) {
+                Swal.fire({
+                    title: "Error",
+                    text: 'OTP Not Matched, Please Retry..!',
+                    icon: "error",
+                    showCloseButton: true,
+                });
+                $('#txtEmailOTP').val('');
+                EnteredOTP = '';
+                $('#btnEverify').removeClass('has-spinner1').removeClass('activeSpin');
+                $('#btnEverify').html("<i class='fa fa-check'></i> Verify");
+            }
+            else {
+                updateverificationStatus('Email', userID);
+            }
+        }
+        else {
+            Swal.fire({
+                title: "Error",
+                text: 'Please Enter OTP, Its Can`t be Blank..!',
+                icon: "error",
+                showCloseButton: true,
+            });
+            $('#txtEmailOTP').val('');
+            EnteredOTP = '';
+            $('#btnEverify').removeClass('has-spinner1').removeClass('activeSpin');
+            $('#btnEverify').html("<i class='fa fa-check'></i> Verify");
+        }
+    })
+
+    $('#btnMverify').click(function () {
+        //alert(verifyStatus);
+        var h = '<span class="spinner1"><i class="fa fa-spinner fa-pulse"></i> Verifying</span>'
+
+        $('#btnMverify').addClass('has-spinner1').addClass('activeSpin');
+        $('#btnMverify').html('');
+        $('#btnMverify').html(h);
+
+
+        var detailsMobileOTP = getCookie('mobileOTP');
+        var mobileRecievedOTP = detailsMobileOTP;
+        var EnteredOTP = $('#txtMobileOTP').val();
+        var userID = getCookie('userID');
+
+        if (EnteredOTP.length > 0) {
+
+            //if (parseInt(EnteredOTP) == 0) {
+            //    Swal.fire({
+            //        title: "Error",
+            //        text: 'Invalid OTP..!',
+            //        icon: "error",
+            //        showCloseButton: true,
+            //    });
+            //    $('#txtMobileOTP').val('');
+            //    EnteredOTP = '';
+            //    $('#btnMverify').removeClass('has-spinner1').removeClass('activeSpin');
+            //    $('#btnMverify').html("<i class='fa fa-check'></i> Verify");
+            //}
+            //else if (mobileRecievedOTP != EnteredOTP) {
+            //    Swal.fire({
+            //        title: "Error",
+            //        text: 'OTP Not Matched, Please Retry..!',
+            //        icon: "error",
+            //        showCloseButton: true,
+            //    });
+            //    $('#txtMobileOTP').val('');
+            //    EnteredOTP = '';
+            //    $('#btnMverify').removeClass('has-spinner1').removeClass('activeSpin');
+            //    $('#btnMverify').html("<i class='fa fa-check'></i> Verify");
+            //}
+            //else {
+            updateverificationStatus('Mobile', userID);
+            //}
+        }
+        else {
+            Swal.fire({
+                title: "Error",
+                text: 'Please Enter OTP, Its Can`t be Blank..!',
+                icon: "error",
+                showCloseButton: true,
+            });
+            $('#txtMobileOTP').val('');
+            EnteredOTP = '';
+            $('#btnMverify').removeClass('has-spinner1').removeClass('activeSpin');
+            $('#btnMverify').html("<i class='fa fa-check'></i> Verify");
+        }
+    })
+
+
+
+    function numberOnly(id) {
+        // Get element by id which passed as parameter within HTML element event
+        var element = document.getElementById(id);
+        // This removes any other character but numbers as entered by user
+        element.value = element.value.replace(/[^0-9]/gi, "");
+    }
+
+    function updateverificationStatus(item, userID) {
+        var TrialuserModal = {
+            userID: userID,
+            verificationType: item
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: "/Home/updateStatus",
+            dataType: 'json',
+            type: 'Post',
+            cache: false,
+            data: JSON.stringify(TrialuserModal),
+            success: function (data) {
+                console.log('ajax');
+                console.log(data);
+
+                //localStorage.removeItem("TrialUserDetails");
+
+                if (data.status == 1) {
+                    Swal.fire({
+                        title: "Success",
+                        text: data.message,
+                        icon: "success",
+                        showCloseButton: true,
+                    });
+                    verifyStatus = verifyStatus + 1;
+                }
+
+                if (item == "Email") {
+                    $('#btnEverify').removeClass('has-spinner1').removeClass('activeSpin');
+                    $('#btnEverify').addClass('btn btn-success');
+                    $('#btnEverify').html("<i class='fa fa-check'></i> Verified");
+                }
+
+                if (item == "Mobile") {
+                    $('#btnMverify').removeClass('has-spinner1').removeClass('activeSpin');
+                    $('#btnMverify').addClass('btn btn-success');
+                    $('#btnMverify').html("<i class='fa fa-check'></i> Verified");
+                }
+
+                if (verifyStatus == 2) {
+                    setTimeout(function () {
+
+                        window.location.href = "/Home/test";
+                        eraseCookie('emailOTP');
+                        eraseCookie('userID');
+                        eraseCookie('mobileOTP');
+                    }, 3000)
+                }
+
+                //else {
+                //    Swal.fire({
+                //        title: "Error",
+                //        text: data,
+                //        icon: "error",
+                //        showCloseButton: true,
+                //    });
+                //    $('#btnStartTrail').html('<i class="fa fa-home"></i> Start 15 Days Trial')
+                //}
+
+                //setTimeout(function () {
+                //    location.reload();
+                //}, 3000);
+
+            },
+            error: function (d) {
+                console.log(d);
+                //alert("404. Please wait until the File is Loaded.");
+            }
+        });
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+
+
+</script>

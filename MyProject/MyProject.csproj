@@ -257,6 +257,7 @@
     <Content Include="Views\Shared\_LoyoutProject.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Home\FormBuilderpage.cshtml" />
+    <Content Include="Views\Home\Verification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

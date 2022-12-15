@@ -22,6 +22,8 @@ namespace MyProject.Helper
         public string Password { get; set; }
         public string Mobile { get; set; }
         public string RoleName { get; set; }
+        public int mobileOTP { get; set; }
+        public int emailOTP { get; set; }
     }
 
 

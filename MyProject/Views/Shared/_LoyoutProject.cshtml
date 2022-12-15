@@ -14,6 +14,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-toggle/3.6.1/bootstrap4-toggle.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.15/sweetalert2.css" />
+
     <link href="~/Content/css/bootstrap-select.min.css" rel="stylesheet" />
     <!-- Bootstrap seclect -->
     <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap-select.min.css" />
@@ -110,6 +111,11 @@
 
     <div class="page-wraper">
 
+        <input type="hidden" id="hdnuserID" />
+        <input type="hidden" id="hdnEmailOTP" />
+        <input type="hidden" id="hdnMobileOTP" />
+        <input type="hidden" id="hdnMobile" />
+        <input type="hidden" id="hdnEmail" />
         <!-- HEADER START -->
         <header class="site-header header-style-1 mobile-sider-drawer-menu header-full-width">
             <div class="sticky-header main-bar-wraper  navbar-expand-lg">
@@ -214,9 +220,9 @@
                         <div class="extra-nav header-2-nav">
                             <div class="extra-cell">
                                 <!--Login-->
-                                <button type="button" class="site-button aon-btn-login" data-toggle="modal" data-target="#login-signup-model">
+                                <a href="https://localhost:44393/" class="site-button aon-btn-login">
                                     <i class="fa fa-user"></i> Login
-                                </button>
+                                </a>
                                 <!--Sign up-->
                                 <a href="mc-profile.html" class="site-button aon-btn-signup m-l20">
                                     <i class="fa fa-plus"></i> Add Listing
@@ -267,12 +273,12 @@
                                         <ul class="clearfix sf-searchfileds-count-5">
                                             <li>
                                                 <label>Name</label>
-                                                <input type="text" value="" placeholder="Enter Keyword" id="txtName" name="keyword" class="form-control sf-form-control">
+                                                <input type="text" value="" placeholder="Enter Keyword" id="txtName" name="keyword" class="form-control sf-form-control" autocomplete="off">
                                                 <span class="sf-search-icon"><img src="images/search-bar/keyword.png" alt="" /></span>
                                             </li>
                                             <li>
                                                 <label>User Type</label>
-                                                <select id="categorysrh" name="catid" class="form-control sf-form-control aon-categories-select sf-select-box" title="Select User Type">
+                                                <select id="categorysrh" name="catid" class="form-control sf-form-control aon-categories-select sf-select-box">
                                                     <option class="bs-title-option" value="0">Select User Type</option>
                                                     @{
                                                         if (userTypes != null)
@@ -327,26 +333,79 @@
                                                 </li>*@
                                             <li>
                                                 <label>Pincode</label>
-                                                <input type="text" value="" placeholder="Enter Pincode" id="txtPincode" maxlength="6" name="Pincode" class="form-control sf-form-control">
+                                                <input type="text" value="" placeholder="Enter Pincode" id="txtPincode" maxlength="6" name="Pincode" class="form-control sf-form-control" autocomplete="off">
                                                 <span class="sf-code-icon"><img src="images/search-bar/Pincode.png" alt="" /></span>
                                             </li>
                                             <li>
                                                 <label>Mobile No</label>
-                                                <input type="text" value="" placeholder="Enter Mobile" maxlength="10" id="txtmobile" name="mobile" class="form-control sf-form-control">
+                                                <input type="text" value="" placeholder="Enter Mobile" maxlength="10" id="txtmobile" name="mobile" class="form-control sf-form-control" autocomplete="off">
                                                 <span class="sf-code-icon"><img src="images/search-bar/Pincode.png" alt="" /></span>
                                             </li>
                                             <li>
                                                 <label>Email Id</label>
-                                                <input type="text" value="" placeholder="Enter Email" id="txtEmail" name="Email" class="form-control sf-form-control">
+                                                <input type="text" value="" placeholder="Enter Email" id="txtEmail" name="Email" class="form-control input-md" autocomplete="off">
                                                 <span class="sf-footer-bottom-section"><img src="images/search-bar/Email.png" alt="" /></span>
                                             </li>
                                             <li>
-                                                <label>Password</label>
-                                                <input type="password" value="" placeholder="Enter Password" id="txtPassword" name="password" class="form-control sf-form-control">
-                                                <span class="sf-footer-bottom-section"><img src="images/search-bar/Email.png" alt="" /></span>
-                                                <div id="progressBar">
-                                                    <div id="progress-bar"><span style="margin-top:10px"></span></div>
+                                                <!-- Password input-->
+                                                <div class="form-group">
+                                                    <label class="col-md-12 control-label" for="passwordinput">
+                                                        Password <i class="fa fa-info-circle" id="passInfo" style="font-size: 14px;color: #29448d;"></i>
+                                                    </label>
+                                                    <div class="col-md-12">
+                                                        <input id="password" class="form-control" name="password" type="password" placeholder="Enter your password">
+                                                        <span class="show-pass" onclick="toggle()" style="    position: absolute;    top: 39px;    left: 24.5em;">
+                                                            <i class="far fa-eye" onclick="myFunction(this)"></i>
+                                                        </span>
+                                                        <div id="popover-password">
+                                                            <p><span id="result"></span></p>
+                                                            <div class="progress" style="height: 5px !important;">
+                                                                <div id="password-strength"
+                                                                     class="progress-bar"
+                                                                     role="progressbar"
+                                                                     aria-valuenow="40"
+                                                                     aria-valuemin="0"
+                                                                     aria-valuemax="100"
+                                                                     style="width:0%">
+                                                                </div>
+                                                            </div>
+                                                            <div id="password-strength-title"></div>
+                                                            <ul class="list-unstyled" id="ulpassRequire" style="display:none">
+                                                                <li class="">
+                                                                    <span class="low-upper-case">
+                                                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                                                        &nbsp;Lowercase &amp; Uppercase
+                                                                    </span>
+                                                                </li>
+                                                                <li class="">
+                                                                    <span class="one-number">
+                                                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                                                        &nbsp;Number (0-9)
+                                                                    </span>
+                                                                </li>
+                                                                <li class="">
+                                                                    <span class="one-special-char">
+                                                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                                                        &nbsp;Special Character (!@@#$%^&*)
+                                                                    </span>
+                                                                </li>
+                                                                <li class="">
+                                                                    <span class="eight-character">
+                                                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                                                        &nbsp;Atleast 8 Character
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
+                                                @*<label>Password</label>
+                                                    <input type="password" value="" placeholder="Enter Password" id="txtPassword" name="password" class="form-control sf-form-control">
+                                                    <span class="sf-footer-bottom-section"><img src="images/search-bar/Email.png" alt="" /></span>
+                                                    <div id="progressBar">
+                                                        <div id="progress-bar"><span style="margin-top:10px"></span></div>
+                                                    </div>*@
                                             </li>
                                         </ul>
                                     </div>
@@ -1741,6 +1800,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <!-- Login Sign Up Modal -->
                 <!-- JAVASCRIPT  FILES ========================================= -->
                 <script src="/Content/js/jquery-3.6.0.min.js"></script><!-- JQUERY.MIN JS -->
@@ -1783,58 +1844,12 @@
 
             if (checkValidate()) {
                 SaveDetails();
+                //setTimeout(function () {
+                //    //window.location.href = "/Home/Verification";
+                //}, 2000);
             }
             /*clear();*/
-        });
-    });
 
-    jQuery.strength = function (element, password) {
-        var desc = [{ 'width': '20%', 'background': '#ff0000', 'height': '5px', 'border-radius': '10px', 'margin-top': '12px' }, { 'width': '40%', 'background': '#d63384', 'height': '5px', 'border-radius': '10px', 'margin-top': '12px' }, { 'width': '60%', 'background': '#d6bd33', 'height': '5px', 'border-radius': '10px', 'margin-top': '12px' }, { 'width': '80%', 'background': '#23915b', 'height': '5px', 'border-radius': '10px', 'margin-top': '12px' }, { 'width': '100%', 'background': '#05fb83', 'height': '5px', 'border-radius': '10px', 'margin-top': '12px' }];
-        var descClass = ['', 'progress-bar-danger', 'progress-bar-danger', 'progress-bar-warning', 'progress-bar-success', 'progress-bar-success'];
-        //var widthClass = ['Very Weak', 'Weak', 'Good', 'Strong', 'Very Strong'];
-        var score = -1;
-
-        if (password.length > 3) {
-            score++;
-        }
-
-        if ((password.match(/[a-z]/)) && (password.match(/[A-Z]/))) {
-            score++;
-        }
-
-        if (password.match(/\d+/)) {
-            score++;
-        }
-
-        if (password.match(/.[!,#,$,%,^,&,*,?,_,~,-,(,)]/)) {
-            score++;
-        }
-
-        if (password.length > 6) {
-            score++;
-        }
-        if (password.length > 8) {
-            //score++;
-            //score++;
-            score = 5;
-        }
-
-        //console.log('After');
-        //console.log(score);
-        //$('#progress-bar span').html('')
-        //$('#progress-bar span').html(widthClass[score]);
-        element.removeClass(descClass[score - 1]).addClass(descClass[score]).css(desc[score]);
-    };
-
-    jQuery(function () {
-        jQuery("#txtPassword").keyup(function () {
-            if (jQuery("#txtPassword").val().length <=0) {
-                $('#progress-bar').css('display', 'none');
-            }
-            else {
-                $('#progress-bar').css('display', 'block');
-                jQuery.strength(jQuery("#progress-bar"), jQuery(this).val());
-            }
         });
     });
 
@@ -1951,7 +1966,11 @@
         var pincode = $('#txtPincode').val();
         var mobile = $('#txtmobile').val();
         var email = $('#txtEmail').val();
-        var password = $('#txtPassword').val();
+        var password = $('#password').val();
+
+
+        $('#hdnEmail').val(email);
+        $('#hdnMobile').val(mobile);
 
         var TrialuserModal = {
             sName: name,
@@ -1975,14 +1994,31 @@
                 console.log('ajax');
                 console.log(data);
 
-                if (data == "Details Saved Successfully...") {
-                    Swal.fire({
-                        title: "Success",
-                        text: data,
-                        icon: "success",
-                        showCloseButton: true,
-                    });
+                if (data.message == "Details Saved Successfully..." && data.status == 1) {
+                    //Swal.fire({
+                    //    title: "Success",
+                    //    text: data,
+                    //    icon: "success",
+                    //    showCloseButton: true,
+                    //});
+                    //$('#hdnuserID').val('');
+                    //$('#hdnuserID').val(data.userID);
+                    //$('#hdnEmailOTP').val('');
+                    //$('#hdnEmailOTP').val(data.emailOTP);
+                    //$('#hdnMobileOTP').val('');
+                    //$('#hdnMobileOTP').val(data.mobileOTP);
+
+                    setCookie('emailOTP', data.emailOTP, 1);
+                    setCookie('mobileOTP', data.mobileOTP, 1);
+                    setCookie('userID', data.userID, 1);
+
                     $('#btnStartTrail').html('<i class="fa fa-home"></i> Start 15 Days Trial')
+                    var x = getCookie('emailOTP');
+                    //alert(x);
+                    //alert('got the value');
+                    if (x != null) {
+                         window.location.href = "/Home/Verification";
+                    }
                 }
                 else {
                     Swal.fire({
@@ -1994,9 +2030,9 @@
                     $('#btnStartTrail').html('<i class="fa fa-home"></i> Start 15 Days Trial')
                 }
 
-                setTimeout(function () {
-                    location.reload();
-                }, 3000);
+                //setTimeout(function () {
+                //    location.reload();
+                //}, 3000);
 
             },
             error: function (d) {
@@ -2015,4 +2051,132 @@
     //    $('#txtPassword').val('');
     //}
 
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    let state = false;
+    let visible = false;
+
+    $(document).ready(function () {
+        $('#password').keyup(function () {
+            let pass = $("#password").val();
+            checkStrength(pass);
+        });
+
+        $('#passInfo').click(function () {
+            if (visible) {
+                visible = false;
+                $('#ulpassRequire').css('display', 'none');
+            }
+            else {
+                visible = true;
+                $('#ulpassRequire').css('display', 'block');
+            }
+
+        });
+        //$('#passInfo').mouseleave(function () {
+        //    $('#ulpassRequire').css('display', 'none');
+        //});
+
+    });
+
+    function toggle() {
+        if (state) {
+            $("#password").attr("type", "password");
+            state = false;
+        } else {
+            $("#password").attr("type", "text")
+            state = true;
+        }
+    }
+
+    function myFunction(show) {
+        show.classList.toggle("fa-eye-slash");
+    }
+
+    function checkStrength(password) {
+        let strength = 0;
+        //If password contains both lower and uppercase characters
+        if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+            strength += 1;
+            $('.low-upper-case i').removeClass('fa-circle')
+            $('.low-upper-case i').addClass('fa-check').css('color', '#25b325');
+        } else {
+            $('.low-upper-case i').addClasss('fa-circle');
+            $('.low-upper-case i').removeClass('fa-check');
+        }
+        //If it has numbers and characters
+        if (password.match(/([0-9])/)) {
+            strength += 1;
+            $('.one-number i').removeClass('fa-circle');
+            $('.one-number i').addClass('fa-check').css('color', '#25b325');
+        } else {
+            $('.one-number i').addClass('fa-circle');
+            $('.one-number i').removeClass('fa-check');
+        }
+        //If it has one special character
+        if (password.match(/([!,%,&,@@,#,$,^,*,?,_,~])/)) {
+            strength += 1;
+            $('.one-special-char i').removeClass('fa-circle');
+            $('.one-special-char i').addClass('fa-check').css('color', '#25b325');
+        } else {
+            $('.one-special-char i').addClass('fa-circle');
+            $('.one-special-char i').removeClass('fa-check');
+        }
+        //If password is greater than 7
+        if (password.length > 7) {
+            strength += 1;
+            $('.eight-character i').removeClass('fa-circle');
+            $('.eight-character i').addClass('fa-check').css('color', '#25b325');
+        } else {
+            $('.eight-character i').addClass('fa-circle');
+            $('.eight-character i').removeClass('fa-check');
+        }
+
+        // If value is less than 2
+        if (strength < 2) {
+            $('#password-strength').removeClass('progress-bar-warning');
+            $('#password-strength').removeClass('progress-bar-success');
+            $('#password-strength').css('background-color', '#ff0000');
+            $('#password-strength').css('width', '10%');
+            $('#password-strength-title').html('');
+            $('#password-strength-title').html('Weak');
+
+        } else if (strength == 3) {
+            $('#password-strength').removeClass('progress-bar-success');
+            $('#password-strength').removeClass('progress-bar-danger');
+            $('#password-strength').css('background-color', '#29448d');
+            $('#password-strength').css('width', '60%');
+            $('#password-strength-title').html('');
+            $('#password-strength-title').html('Strong');
+        } else if (strength == 4) {
+            $('#password-strength').removeClass('progress-bar-warning');
+            $('#password-strength').removeClass('progress-bar-danger');
+            $('#password-strength').css('background-color', '#02cd00');
+            $('#password-strength').css('width', '100%');
+            $('#password-strength-title').html('');
+            $('#password-strength-title').html('Very Strong');
+        }
+    }
 </script>

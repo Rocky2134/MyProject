@@ -34,6 +34,11 @@ namespace MyProject.Controllers
             ViewBag.UserType = data;
             return View();
         }
+        public ActionResult Verification()
+        {
+            
+            return View();
+        }
         public ActionResult FormBuilderpage()
         {
 
@@ -58,11 +63,17 @@ namespace MyProject.Controllers
         public JsonResult saveDetails(TrailuserModal trailuser)
         {
             var data = DBOperation.saveUserDetails(trailuser);
-
-
-
-
-
+            return new JsonResult
+            {
+                Data = data,
+                ContentEncoding = System.Text.Encoding.UTF8,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+        
+        public JsonResult updateStatus(VerificationRequest verification)
+        {
+            var data = DBOperation.UpadteVerificationStatus(verification);
             return new JsonResult
             {
                 Data = data,
