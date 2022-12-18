@@ -124,11 +124,11 @@ namespace MyProject.Helper
                 con.Close();
             }
         }
-        public static List<M_userType> getUserType(int EnumNo = 2)
+        public static List<M_userType> getUserType(string userType = "UserType")
         {
             List<M_userType> userTypes = new List<M_userType>();
             SqlParameter[] param = new SqlParameter[1];
-            param[0] = new SqlParameter("@enumID", EnumNo);
+            param[0] = new SqlParameter("@selectionType", userType);
 
             DataSet ds = FillDataSet("[dbo].[USP_ADMIN_CustomFields_View]", param);
             if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
@@ -191,16 +191,48 @@ namespace MyProject.Helper
         {
             try
             {
+
+                //mail.From = new MailAddress("");
+                //smtp.Host = ""; //Or Your SMTP Server Address
+                //smtp.Port = 25;
+                //smtp.UseDefaultCredentials = false;
+                //smtp.Credentials = new System.Net.NetworkCredential
+                //("info@thelaundrypoint.in", "P@ravin@9322459888");
+
+
+
+
+                //Server (Godaddy) Email Setting
+
                 var sendEmailSetting = new SendEmail
                 {
                     Message = "Registration",
-                    SenderID = "vivekchoudhary424@gmail.com",
-                    SenderIdPassword = "bqaogevzhmklzgux",
+                    SenderID = "accounts@thelaundryyard.com",
+                    SenderIdPassword = "P@ravin@9322459888",
                     URLToBeSendLogin = "https://localhost:44393/Auth/Login",
-                    SenderDisplayName = "vivek",
-                    SMTPHost = "smtp.gmail.com",
-                    Port = 587
+                    SenderDisplayName = "Smart Ensure",
+                    SMTPHost = "relay-hosting.secureserver.net",
+                    Port = 25
                 };
+
+                //Server (Godaddy) Email Setting
+
+                //Local Email Setting
+
+                //var sendEmailSetting = new SendEmail
+                //{
+                //    Message = "Registration",
+                //    SenderID = "vivekchoudhary424@gmail.com",
+                //    SenderIdPassword = "bqaogevzhmklzgux",
+                //    URLToBeSendLogin = "https://localhost:44393/Auth/Login",
+                //    SenderDisplayName = "vivek",
+                //    SMTPHost = "smtp.gmail.com",
+                //    Port = 587
+                //};
+
+                //Local Email Setting
+
+
                 var senderEmail = new MailAddress(sendEmailSetting.SenderID, sendEmailSetting.SenderDisplayName);
                 var receiverEmail = new MailAddress(email.RecieverEmailID, email.RecieverDisplayName);
                 var password = sendEmailSetting.SenderIdPassword;

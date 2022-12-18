@@ -10,7 +10,7 @@ namespace MyProject.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult IndexNew()
         {
             return View();
         }
@@ -28,7 +28,7 @@ namespace MyProject.Controllers
 
             return View();
         }
-        public ActionResult Test()
+        public ActionResult Index()
         {
             var data = DBOperation.getUserType();
             ViewBag.UserType = data;
