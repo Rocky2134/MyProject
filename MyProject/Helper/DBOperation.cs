@@ -204,31 +204,31 @@ namespace MyProject.Helper
 
                 //Server (Godaddy) Email Setting
 
-                var sendEmailSetting = new SendEmail
-                {
-                    Message = "Registration",
-                    SenderID = "accounts@thelaundryyard.com",
-                    SenderIdPassword = "P@ravin@9322459888",
-                    URLToBeSendLogin = "https://localhost:44393/Auth/Login",
-                    SenderDisplayName = "Smart Ensure",
-                    SMTPHost = "relay-hosting.secureserver.net",
-                    Port = 25
-                };
+                //var sendEmailSetting = new SendEmail
+                //{
+                //    Message = "Registration",
+                //    SenderID = "accounts@thelaundryyard.com",
+                //    SenderIdPassword = "P@ravin@9322459888",
+                //    URLToBeSendLogin = "https://localhost:44393/Auth/Login",
+                //    SenderDisplayName = "Smart Ensure",
+                //    SMTPHost = "relay-hosting.secureserver.net",
+                //    Port = 25
+                //};
 
                 //Server (Godaddy) Email Setting
 
                 //Local Email Setting
 
-                //var sendEmailSetting = new SendEmail
-                //{
-                //    Message = "Registration",
-                //    SenderID = "vivekchoudhary424@gmail.com",
-                //    SenderIdPassword = "bqaogevzhmklzgux",
-                //    URLToBeSendLogin = "https://localhost:44393/Auth/Login",
-                //    SenderDisplayName = "vivek",
-                //    SMTPHost = "smtp.gmail.com",
-                //    Port = 587
-                //};
+                var sendEmailSetting = new SendEmail
+                {
+                    Message = "Registration",
+                    SenderID = "vivekchoudhary424@gmail.com",
+                    SenderIdPassword = "bqaogevzhmklzgux",
+                    URLToBeSendLogin = "https://localhost:44393/Auth/Login",
+                    SenderDisplayName = "vivek",
+                    SMTPHost = "smtp.gmail.com",
+                    Port = 587
+                };
 
                 //Local Email Setting
 

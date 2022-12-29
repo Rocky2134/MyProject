@@ -165,6 +165,7 @@
     <Content Include="Content\formbuilder\js\jquery-ui.min.js" />
     <Content Include="Content\formbuilder\js\jquery.min.js" />
     <Content Include="Content\formbuilder\js\tether.min.js" />
+    <Content Include="Content\globalDomain.js" />
     <Content Include="Content\images\bnr-pic.jpg" />
     <Content Include="Content\images\pricing-bg-blue%402x.png" />
     <Content Include="Content\images\pricing-bg-default%402x.png" />

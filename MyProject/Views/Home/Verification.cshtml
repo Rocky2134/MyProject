@@ -151,7 +151,7 @@
 <script src="/Content/js/lc_lightbox.lite.js"></script><!-- IMAGE POPUP -->
 <script src="/Content/js/bootstrap-slider.min.js"></script><!-- Form js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.15/sweetalert2.min.js"></script>
-
+<script src="~/Content/globalDomain.js"></script>
 <script type="text/javascript">
     var verifyStatus = 0;
     $(document).ready(function () {
@@ -299,7 +299,7 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url: "/Home/updateStatus",
+            url: GetglobalDomain()+ "/Home/updateStatus",
             dataType: 'json',
             type: 'Post',
             cache: false,
@@ -335,7 +335,7 @@
                 if (verifyStatus == 2) {
                     setTimeout(function () {
 
-                        window.location.href = "/Home/Index";
+                        window.location.href = GetglobalDomain()+"/Home/Index";
                         eraseCookie('emailOTP');
                         eraseCookie('userID');
                         eraseCookie('mobileOTP');
