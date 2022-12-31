@@ -1,5 +1,6 @@
 ﻿using MyProject.Helper;
 using MyProject.Modal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace MyProject.Controllers
         }
         public ActionResult Verification()
         {
-            
+
             return View();
         }
         public ActionResult FormBuilderpage()
@@ -70,7 +71,21 @@ namespace MyProject.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        
+
+        public ActionResult getPackageData(int userTypeID)
+        {
+            List<PackDetails> packs = new List<PackDetails>();
+            var data = DBOperation.getPackageData(userTypeID);
+            if (data.DATA != null)
+            {
+                var d = JsonConvert.SerializeObject(data.DATA);
+
+                packs = JsonConvert.DeserializeObject<List<PackDetails>>(d);
+            }
+
+            return View(packs);
+        }
+
         public JsonResult updateStatus(VerificationRequest verification)
         {
             var data = DBOperation.UpadteVerificationStatus(verification);

@@ -126,6 +126,7 @@
     </Compile>
     <Compile Include="Helper\DBOperation.cs" />
     <Compile Include="Helper\SendEmail.cs" />
+    <Compile Include="Modal\PackDetails.cs" />
     <Compile Include="Modal\TrailuserModal.cs" />
     <Compile Include="Modal\M_userType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -259,6 +260,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\FormBuilderpage.cshtml" />
     <Content Include="Views\Home\Verification.cshtml" />
+    <Content Include="Views\Home\getPackageData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

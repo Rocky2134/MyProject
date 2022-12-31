@@ -15,6 +15,7 @@ using System.Net;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using System.Threading;
+using Newtonsoft.Json.Linq;
 
 namespace MyProject.Helper
 {
@@ -165,6 +166,23 @@ namespace MyProject.Helper
                 response.mobileOTP = GetOTP();
                 response.emailOTP = GetOTP();
                 SendMail(new SendEmail { Message = "EmailOTP", RecieverDisplayName = modal.sName, RecieverEmailID = modal.sEmailId, emailOTP = response.emailOTP, mobileOTP = response.mobileOTP });
+            }
+            return response;
+        }
+        
+        public static Response getPackageData(int userType)
+        {
+            Response response = new Response();
+
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@userType", userType);
+           
+            DataSet ds = FillDataSet("[dbo].[USP_ADMIN_PackageDetails_select]", param);
+            if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+            {
+                response.status = 1;
+                response.message = "Packaged Details";
+                response.DATA = ds.Tables[0];
             }
             return response;
         }

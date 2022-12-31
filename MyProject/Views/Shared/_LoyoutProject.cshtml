@@ -1166,9 +1166,9 @@
                     <div class="section-content">
                         <!--Pricing Table Button-->
                         <div class="sf-priceing-tb-control">
-                            <button class="btn btn-outline-primary usertypeBTN" id="btnAgent" type="button">AGENT</button>
-                            <button class="btn btn-outline-primary usertypeBTN" id="btnCoAgent" type="button">CO OPERATE AGENT</button>
-                            <button class="btn btn-outline-primary usertypeBTN" id="btnBroker" type="button">BROKER</button>
+                            <button class="btn btn-outline-primary usertypeBTN" data-id="1" id="btnAgent" type="button">AGENT</button>
+                            <button class="btn btn-outline-primary usertypeBTN" data-id="2" id="btnBroker" type="button">BROKER</button>
+                            <button class="btn btn-outline-primary usertypeBTN" data-id="3" id="btnCoAgent" type="button">CO OPERATE AGENT</button>
 
                             @*<span>Bill Monthly</span>
                                 <label class="switch">
@@ -1182,8 +1182,8 @@
                         <div style="
                         padding-top: 90px;
                     ">
-                            <div class="row no-gutter" style="margin-right:10px !important;">
-                                <div class="col-md-3" style="
+                            <div class="row no-gutter" id="divPackages" style="margin-right:10px !important;">
+                                @*<div class="col-md-3" style="
                                 background: white;
                                 border: solid;
                                 border-end-end-radius: 152px;
@@ -1285,7 +1285,7 @@
                                         <div class="sf-price-plan-cost">$<span>39</span>/month</div>
                                     </div>
                                     <button class="sf-choose-plan-btn1" onclick="buyPack(3)">Buy Now</button>
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                         <!--Pricing Table Button-->
@@ -1849,6 +1849,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#btnAgent').removeClass('btn-outline-primary').addClass('btn-primary');
+        GenerateExtraAddInfromation(1);
+
         $('#btnStartTrail').click(function () {
             //alert('button clicked');
 
@@ -1870,6 +1873,13 @@
                 $('#' + input_valid.id).removeClass('btn-primary').addClass('btn-outline-primary');
             });
             $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+
+            var usertype = $(this).data('id');
+
+            //alert(usertype);
+            GenerateExtraAddInfromation(usertype);
+
+
         });
 
     });
@@ -2068,6 +2078,18 @@
         setTimeout(function () {
             window.location.href = '@LoginURL' + '?packID=' + packID;
         }, 1500);
+    }
+
+    function GenerateExtraAddInfromation(Id) {
+        $.ajax({
+            url: GetglobalDomain() + '/Home/getPackageData?userTypeID=' + Id,
+            type: 'POST',
+            dataType: "text",
+            success: function (response) {
+                $("#divPackages").html(response);
+            }
+        });
+        return false;
     }
 
     //function clear() {
