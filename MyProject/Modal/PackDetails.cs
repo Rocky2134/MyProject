@@ -7,6 +7,7 @@ namespace MyProject.Modal
 {
     public class PackDetails
     {
+        public int iPk_PackId { get; set; }
         public string sPackName { get; set; }
         public decimal dPackFeaAmt { get; set; }
         public decimal dPackFunAmt { get; set; }

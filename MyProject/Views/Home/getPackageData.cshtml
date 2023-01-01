@@ -9,7 +9,7 @@
 
 @{
     var i = 1;
-    foreach (var item in Model.Select(s => new { packName = s.sPackName, featureAMT = s.dPackFeaAmt, functionAMT = s.dPackFunAmt, total = s.totalAmount, registration = s.iNumReg, validity = s.iValidityvalue, displayAMT = s.Total_displayvalue,validityName=s.iValidityIdName,accureType=s.iTypIdname }).Distinct().ToList())
+    foreach (var item in Model.Select(s => new { pakageID = s.iPk_PackId,packName = s.sPackName, featureAMT = s.dPackFeaAmt, functionAMT = s.dPackFunAmt, total = s.totalAmount, registration = s.iNumReg, validity = s.iValidityvalue, displayAMT = s.Total_displayvalue,validityName=s.iValidityIdName,accureType=s.iTypIdname }).Distinct().ToList())
     {
         var image = "";
         image = colorList.Where(p => p.id == i).FirstOrDefault().imageURL;
@@ -51,7 +51,7 @@
             </div>
 
 
-            <button class="sf-choose-plan-btn1" onclick="buyPack(1)">Buy Now</button>
+            <button class="sf-choose-plan-btn1" onclick="buyPack(@item.pakageID)">Buy Now</button>
         </div>
         i++;
     }
