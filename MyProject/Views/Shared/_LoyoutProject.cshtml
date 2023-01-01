@@ -1,5 +1,9 @@
 ﻿@{
     var userTypes = ViewBag.UserType as List<MyProject.Modal.M_userType>;
+
+    var LoginURL = System.Configuration.ConfigurationManager.AppSettings["LoginURL"].ToString();
+
+
 }
 <!DOCTYPE html>
 <html>
@@ -220,7 +224,7 @@
                         <div class="extra-nav header-2-nav">
                             <div class="extra-cell">
                                 <!--Login-->
-                                <a href="https://localhost:44393/" class="site-button aon-btn-login">
+                                <a href="@LoginURL" class="site-button aon-btn-login">
                                     <i class="fa fa-user"></i> Login
                                 </a>
                                 <!--Sign up-->
@@ -277,38 +281,41 @@
                                                 <span class="sf-search-icon"><img src="images/search-bar/keyword.png" alt="" /></span>
                                             </li>
                                             <li>
-                                                <label>User Type</label>
-                                                <select id="categorysrh" name="catid" class="form-control sf-form-control aon-categories-select sf-select-box">
-                                                    <option class="bs-title-option" value="0">Select User Type</option>
-                                                    @{
-                                                        if (userTypes != null)
-                                                        {
-                                                            foreach (var item in userTypes)
-                                                            {
-                                                                <option class="bs-title-option" value="@item.DDLValue">@item.DDLText</option>
-                                                            }
-                                                        }
-                                                    }
+                                                <div style="display:none">
+                                                    <label>User Type</label>
+                                                    <select id="categorysrh" name="catid" class="form-control sf-form-control aon-categories-select sf-select-box" dis>
+                                                        @*<option class="bs-title-option" value="0">Select User Type</option>*@
+                                                        <option class="bs-title-option" value="@userTypes[0].DDLValue">@userTypes[0].DDLText</option>
+                                                        @*@{
+                                                                if (userTypes != null)
+                                                                {
+                                                                    foreach (var item in userTypes)
+                                                                    {
+                                                                        <option class="bs-title-option" value="@item.DDLValue">@item.DDLText</option>
+                                                                    }
+                                                                }
+                                                            }*@
 
 
 
-                                                    @*<option value="17" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-1.jpg>
-                                                                            <span class='childcat'>Agent</span>">Agent
-                                                                            </option>
-                                                                            <option value="30" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-2.jpg>
-                                                                            <span class='childcat'>Broker</span>">Broker
-                                                                            </option>
-                                                                            <option value="19" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-3.jpg>
-                                                                            <span class='childcat'>Coorporate Agent</span>">Coorporate Agent
-                                                                            </option>
-                                                                            <option value="19" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-4.jpg>
-                                                          <span class='childcat'>Freelancer</span>">Freelancer
-                                                        </option>*@
-                                                    @*<option value="19" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-5.jpg>
-                                                          <span class='childcat'>Electrician</span>">Electrician
-                                                        </option>*@
-                                                </select>
-                                                <span class="sf-search-icon"><img src="images/search-bar/maintenance.png" alt="" /></span>
+                                                        @*<option value="17" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-1.jpg>
+                                                                                <span class='childcat'>Agent</span>">Agent
+                                                                                </option>
+                                                                                <option value="30" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-2.jpg>
+                                                                                <span class='childcat'>Broker</span>">Broker
+                                                                                </option>
+                                                                                <option value="19" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-3.jpg>
+                                                                                <span class='childcat'>Coorporate Agent</span>">Coorporate Agent
+                                                                                </option>
+                                                                                <option value="19" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-4.jpg>
+                                                              <span class='childcat'>Freelancer</span>">Freelancer
+                                                            </option>*@
+                                                        @*<option value="19" data-content="<img class='childcat-img' width='50' height='auto' src=images\cat-thum\cat-5.jpg>
+                                                              <span class='childcat'>Electrician</span>">Electrician
+                                                            </option>*@
+                                                    </select>
+                                                    <span class="sf-search-icon"><img src="images/search-bar/maintenance.png" alt="" /></span>
+                                                </div>
                                             </li>
                                             @*<li>
                                                     <label>State</label>
@@ -1159,20 +1166,24 @@
                     <div class="section-content">
                         <!--Pricing Table Button-->
                         <div class="sf-priceing-tb-control">
-                            <span>Bill Monthly</span>
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                            <span>Bill Yearly</span>
+                            <button class="btn btn-outline-primary usertypeBTN" data-id="1" id="btnAgent" type="button">AGENT</button>
+                            <button class="btn btn-outline-primary usertypeBTN" data-id="2" id="btnBroker" type="button">BROKER</button>
+                            <button class="btn btn-outline-primary usertypeBTN" data-id="3" id="btnCoAgent" type="button">CO OPERATE AGENT</button>
+
+                            @*<span>Bill Monthly</span>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                <span>Bill Yearly</span>*@
                         </div>
 
                         <!--Testing-->
                         <div style="
                         padding-top: 90px;
                     ">
-                            <div class="row no-gutter" style="margin-right:10px !important;">
-                                <div class="col-md-3" style="
+                            <div class="row no-gutter" id="divPackages" style="margin-right:10px !important;">
+                                @*<div class="col-md-3" style="
                                 background: white;
                                 border: solid;
                                 border-end-end-radius: 152px;
@@ -1205,9 +1216,9 @@
                                     /* margin-right: 1px; */
                                     margin-left: 37px;
                                 ">
-                                        <div class="sf-price-plan-cost">$<span>29</span>/month</div>
+                                        <div class="sf-price-plan-cost"><span>&#x20B9;</span><span> 6000</span></div>
                                     </div>
-                                    <a href="contact-us.html" class="sf-choose-plan-btn1">Choose Plan</a>
+                                    <button class="sf-choose-plan-btn1" onclick="buyPack(1)">Buy Now</button>
                                 </div>
                                 <div class="col-md-3" style="
                                 background: white;
@@ -1240,7 +1251,7 @@
                                 ">
                                         <div class="sf-price-plan-cost">$<span>39</span>/month</div>
                                     </div>
-                                    <a href="contact-us.html" class="sf-choose-plan-btn1">Choose Plan</a>
+                                    <button class="sf-choose-plan-btn1" onclick="buyPack(2)">Buy Now</button>
                                 </div>
                                 <div class="col-md-3" style="
                                 background: white;
@@ -1273,8 +1284,8 @@
                                 ">
                                         <div class="sf-price-plan-cost">$<span>39</span>/month</div>
                                     </div>
-                                    <a href="contact-us.html" class="sf-choose-plan-btn1">Choose Plan</a>
-                                </div>
+                                    <button class="sf-choose-plan-btn1" onclick="buyPack(3)">Buy Now</button>
+                                </div>*@
                             </div>
                         </div>
                         <!--Pricing Table Button-->
@@ -1830,6 +1841,7 @@
                 <script src="/Content/js/lc_lightbox.lite.js"></script><!-- IMAGE POPUP -->
                 <script src="/Content/js/bootstrap-slider.min.js"></script><!-- Form js -->
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.15/sweetalert2.min.js"></script>
+                <script src="~/Content/globalDomain.js"></script>
 
 </body>
 
@@ -1837,6 +1849,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#btnAgent').removeClass('btn-outline-primary').addClass('btn-primary');
+        GenerateExtraAddInfromation(1);
+
         $('#btnStartTrail').click(function () {
             //alert('button clicked');
 
@@ -1851,6 +1866,22 @@
             /*clear();*/
 
         });
+
+        $('.usertypeBTN').click(function () {
+            var validate_inputs = document.querySelectorAll(".usertypeBTN");
+            validate_inputs.forEach(function (input_valid) {
+                $('#' + input_valid.id).removeClass('btn-primary').addClass('btn-outline-primary');
+            });
+            $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+
+            var usertype = $(this).data('id');
+
+            //alert(usertype);
+            GenerateExtraAddInfromation(usertype);
+
+
+        });
+
     });
 
     function checkValidate() {
@@ -1934,7 +1965,7 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url: "/Home/GetUserType",
+            url: GetglobalDomain() + "/Home/GetUserType",
             dataType: 'json',
             type: 'Post',
             cache: false,
@@ -1985,7 +2016,7 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url: "/Home/saveDetails",
+            url: GetglobalDomain() + "/Home/saveDetails",
             dataType: 'json',
             type: 'Post',
             cache: false,
@@ -2017,13 +2048,13 @@
                     //alert(x);
                     //alert('got the value');
                     if (x != null) {
-                         window.location.href = "/Home/Verification";
+                        window.location.href = GetglobalDomain() + "/Home/Verification";
                     }
                 }
                 else {
                     Swal.fire({
                         title: "Error",
-                        text: data,
+                        text: data.message,
                         icon: "error",
                         showCloseButton: true,
                     });
@@ -2040,6 +2071,25 @@
                 //alert("404. Please wait until the File is Loaded.");
             }
         });
+    }
+
+    function buyPack(packID) {
+
+        setTimeout(function () {
+            window.location.href = '@LoginURL' + '?packID=' + packID;
+        }, 1500);
+    }
+
+    function GenerateExtraAddInfromation(Id) {
+        $.ajax({
+            url: GetglobalDomain() + '/Home/getPackageData?userTypeID=' + Id,
+            type: 'POST',
+            dataType: "text",
+            success: function (response) {
+                $("#divPackages").html(response);
+            }
+        });
+        return false;
     }
 
     //function clear() {

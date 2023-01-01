@@ -15,6 +15,7 @@ using System.Net;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using System.Threading;
+using Newtonsoft.Json.Linq;
 
 namespace MyProject.Helper
 {
@@ -124,11 +125,11 @@ namespace MyProject.Helper
                 con.Close();
             }
         }
-        public static List<M_userType> getUserType(int EnumNo = 2)
+        public static List<M_userType> getUserType(string userType = "UserType")
         {
             List<M_userType> userTypes = new List<M_userType>();
             SqlParameter[] param = new SqlParameter[1];
-            param[0] = new SqlParameter("@enumID", EnumNo);
+            param[0] = new SqlParameter("@selectionType", userType);
 
             DataSet ds = FillDataSet("[dbo].[USP_ADMIN_CustomFields_View]", param);
             if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
@@ -168,6 +169,23 @@ namespace MyProject.Helper
             }
             return response;
         }
+        
+        public static Response getPackageData(int userType)
+        {
+            Response response = new Response();
+
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@userType", userType);
+           
+            DataSet ds = FillDataSet("[dbo].[USP_ADMIN_PackageDetails_select]", param);
+            if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+            {
+                response.status = 1;
+                response.message = "Packaged Details";
+                response.DATA = ds.Tables[0];
+            }
+            return response;
+        }
 
         public static Response UpadteVerificationStatus(VerificationRequest modal)
         {
@@ -191,6 +209,34 @@ namespace MyProject.Helper
         {
             try
             {
+
+                //mail.From = new MailAddress("");
+                //smtp.Host = ""; //Or Your SMTP Server Address
+                //smtp.Port = 25;
+                //smtp.UseDefaultCredentials = false;
+                //smtp.Credentials = new System.Net.NetworkCredential
+                //("info@thelaundrypoint.in", "P@ravin@9322459888");
+
+
+
+
+                //Server (Godaddy) Email Setting
+
+                //var sendEmailSetting = new SendEmail
+                //{
+                //    Message = "Registration",
+                //    SenderID = "accounts@thelaundryyard.com",
+                //    SenderIdPassword = "P@ravin@9322459888",
+                //    URLToBeSendLogin = "https://localhost:44393/Auth/Login",
+                //    SenderDisplayName = "Smart Ensure",
+                //    SMTPHost = "relay-hosting.secureserver.net",
+                //    Port = 25
+                //};
+
+                //Server (Godaddy) Email Setting
+
+                //Local Email Setting
+
                 var sendEmailSetting = new SendEmail
                 {
                     Message = "Registration",
@@ -201,6 +247,10 @@ namespace MyProject.Helper
                     SMTPHost = "smtp.gmail.com",
                     Port = 587
                 };
+
+                //Local Email Setting
+
+
                 var senderEmail = new MailAddress(sendEmailSetting.SenderID, sendEmailSetting.SenderDisplayName);
                 var receiverEmail = new MailAddress(email.RecieverEmailID, email.RecieverDisplayName);
                 var password = sendEmailSetting.SenderIdPassword;

@@ -22,6 +22,7 @@ namespace MyProject.Modal
     {
         public string message { get; set; }
         public string userID { get; set; }
+        public object DATA { get; set; }
         public int status { get; set; }
         public int mobileOTP { get; set; }
         public int emailOTP { get; set; }
