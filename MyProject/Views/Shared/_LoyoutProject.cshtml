@@ -2,6 +2,7 @@
     var userTypes = ViewBag.UserType as List<MyProject.Modal.M_userType>;
 
     var LoginURL = System.Configuration.ConfigurationManager.AppSettings["LoginURL"].ToString();
+    var LoginBaseURL = LoginURL.Replace("Alt", "").Trim();
 
 
 }
@@ -224,7 +225,7 @@
                         <div class="extra-nav header-2-nav">
                             <div class="extra-cell">
                                 <!--Login-->
-                                <a href="@LoginURL" class="site-button aon-btn-login">
+                                <a href="@LoginBaseURL" class="site-button aon-btn-login">
                                     <i class="fa fa-user"></i> Login
                                 </a>
                                 <!--Sign up-->
