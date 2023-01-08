@@ -149,13 +149,13 @@ namespace MyProject.Helper
         {
             Response response = new Response();
 
-            SqlParameter[] param = new SqlParameter[6];
+            SqlParameter[] param = new SqlParameter[5];
             param[0] = new SqlParameter("@sName", modal.sName);
             param[1] = new SqlParameter("@sPincode", modal.sPincode);
             param[2] = new SqlParameter("@sMobileNo", modal.sMobileNo);
             param[3] = new SqlParameter("@sEmailId", modal.sEmailId);
             param[4] = new SqlParameter("@sPassword", Encrypt(modal.sPassword));
-            param[5] = new SqlParameter("@iUsrTyp", modal.iUsrTyp);
+            //param[5] = new SqlParameter("@iUsrTyp", modal.iUsrTyp);
 
             DataSet ds = FillDataSet("[dbo].[USP_SaveTrailuser]", param);
             if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)

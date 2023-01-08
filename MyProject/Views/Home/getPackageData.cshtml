@@ -6,56 +6,69 @@
     var colorList = GlobalClass.GetFeatureList();
 
 }
+<div class="row no-gutter" style="margin-right:10px !important;">
+    <div class="owl-carousel owl-theme offer-slider ">
+        @{
 
-@{
-    var i = 1;
-    foreach (var item in Model.Select(s => new { pakageID = s.iPk_PackId,packName = s.sPackName, featureAMT = s.dPackFeaAmt, functionAMT = s.dPackFunAmt, total = s.totalAmount, registration = s.iNumReg, validity = s.iValidityvalue, displayAMT = s.Total_displayvalue,validityName=s.iValidityIdName,accureType=s.iTypIdname }).Distinct().ToList())
-    {
-        var image = "";
-        image = colorList.Where(p => p.id == i).FirstOrDefault().imageURL;
+            var i = 1;
+            foreach (var item in Model.Select(s => new { pakageID = s.iPk_PackId, packName = s.sPackName, featureAMT = s.dPackFeaAmt, functionAMT = s.dPackFunAmt, total = s.totalAmount, registration = s.iNumReg, validity = s.iValidityvalue, displayAMT = s.Total_displayvalue, validityName = s.iValidityIdName, accureType = s.iTypIdname }).Distinct().ToList())
+            {
 
-        <div class="col-md-3" style="background: white; border: solid; border-end-end-radius: 152px; border-color: blanchedalmond; margin-left: 100px; ">
-            <div class="sf-pricing-section sf-pricing-active col-md-12" style="background-image: url(@image); margin-bottom: 10px;background-repeat: no-repeat;background-position: bottom center;background-size: 100% auto;padding-bottom: 125px;">
-                <div class="sf-price-tb-info">
-                    <div class="sf-price-plan-name textcolor">@item.packName</div>
-                    @*<div class="sf-price-plan-discount textcolor">Save 20%</div>*@
-                </div>
+                var image = "";
+                var data = colorList.Where(p => p.id == i).FirstOrDefault();
+
+                if (data == null)
+                {
+                    image = "Website/Content/images/pricing-bg-blue@2x.png";
+                }
+                else
+                {
+                    image = colorList.Where(p => p.id == i).FirstOrDefault().imageURL;
+                }
+                <div class="item col-md-3" style="background: white; border: solid; border-end-end-radius: 152px; border-color: blanchedalmond; margin-left: 100px; width:90%">
+                    <div class="sf-pricing-section sf-pricing-active col-md-12" style="background-image: url(@image); margin-bottom: 10px;background-repeat: no-repeat;background-position: bottom center;background-size: 100% auto;padding-bottom: 125px;">
+                        <div class="sf-price-tb-info">
+                            <div class="sf-price-plan-name textcolor" style="padding-top:15px">@item.packName</div>
+                            @*<div class="sf-price-plan-discount textcolor">Save 20%</div>*@
+                        </div>
 
 
 
-                @*<div class="sf-price-tb-plan" style="margin-left: 37px;">
+                        @*<div class="sf-price-tb-plan" style="margin-left: 37px;">
+                                <div class="sf-price-plan-cost"><span>&#x20B9;</span><span> @item.displayAMT</span></div>
+                            </div>*@
+
+                    </div>
+                    <div class="sf-price-tb-list" style="padding: 15px;height: 17rem;">
+                        <ul>
+                            @foreach (var innerItem in Model.Where(wh => wh.iNumReg == item.registration).ToList())
+                            {
+                                <li><i class="fa fa-check"></i> @innerItem.sMenuName</li>
+                            }
+                            <li><i class="fa fa-check"></i>Licence Count : @item.registration</li>
+                            <li><i class="fa fa-check"></i>Licence Validity : @item.validity (@item.validityName)</li>
+                            <li><i class="fa fa-check"></i>@item.accureType</li>
+                            @*<li><i class="fa fa-check"></i> Booking</li>
+                                <li><i class="fa fa-check"></i> Own Cover Image</li>
+                                <li class="disable"><i class="fa fa-check"></i> Multiple Categories</li>
+                                <li class="disable"><i class="fa fa-check"></i> Apply for Job</li>
+                                <li class="disable"><i class="fa fa-check"></i> Job Alerts</li>
+                                <li class="disable"><i class="fa fa-check"></i> Google Calendar</li>
+                                <li class="disable"><i class="fa fa-check"></i> Crop Profile Image</li>*@
+                        </ul>
+                    </div>
+                    <div class="sf-price-tb-plan" style="margin-left: 37px;">
                         <div class="sf-price-plan-cost"><span>&#x20B9;</span><span> @item.displayAMT</span></div>
-                    </div>*@
-
-            </div>
-            <div class="sf-price-tb-list" style="padding: 15px;">
-                <ul>
-                    @foreach (var innerItem in Model.Where(wh => wh.iNumReg == item.registration).ToList())
-                    {
-                        <li><i class="fa fa-check"></i> @innerItem.sMenuName</li>
-                    }
-                        <li><i class="fa fa-check"></i>Licence Count : @item.registration</li>
-                        <li><i class="fa fa-check"></i>Licence Validity : @item.validity (@item.validityName)</li>
-                        <li><i class="fa fa-check"></i>@item.accureType</li>
-                    @*<li><i class="fa fa-check"></i> Booking</li>
-        <li><i class="fa fa-check"></i> Own Cover Image</li>
-        <li class="disable"><i class="fa fa-check"></i> Multiple Categories</li>
-        <li class="disable"><i class="fa fa-check"></i> Apply for Job</li>
-        <li class="disable"><i class="fa fa-check"></i> Job Alerts</li>
-        <li class="disable"><i class="fa fa-check"></i> Google Calendar</li>
-        <li class="disable"><i class="fa fa-check"></i> Crop Profile Image</li>*@
-                </ul>
-            </div>
-            <div class="sf-price-tb-plan" style="margin-left: 37px;">
-                <div class="sf-price-plan-cost"><span>&#x20B9;</span><span> @item.displayAMT</span></div>
-            </div>
+                    </div>
 
 
-            <button class="sf-choose-plan-btn1" onclick="buyPack(@item.pakageID)">Buy Now</button>
-        </div>
-        i++;
-    }
-}
+                    <button class="sf-choose-plan-btn1" onclick="buyPack(@item.pakageID)">Buy Now</button>
+                </div>
+                i++;
+            }
+        }
+    </div>
+</div>
 
 @*<div class="col-md-3" style="
                             background: white;
@@ -84,3 +97,10 @@
         </div>
         <button class="sf-choose-plan-btn1" onclick="buyPack(1)">Buy Now</button>
     </div>*@
+<script>
+    $(document).ready(function () {
+
+        $(".owl-carousel").owlCarousel();
+
+    });
+</script>
