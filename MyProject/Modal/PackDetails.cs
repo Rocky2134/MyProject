@@ -73,7 +73,7 @@ namespace MyProject.Modal
                 id = 1,
                 backColor = "lightsteelblue",
                 imageURL= "Website/Content/images/pricing-bg-blue@2x.png" //"/Content/images/pricing-bg-blue@2x.png"
-            });;
+            });
 
             Lst.Add(new GlobalClass
             {
