@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewBag.Title = "Select Insurance";
+    Layout = null;
+    var pack = (int)ViewBag.packID;
+    var insuraceList = (List<MyProject.Modal.PackInsuranceDetails>)ViewBag.insuranceData;
+
+    var RegisterURL = System.Configuration.ConfigurationManager.AppSettings["RegisterURL"].ToString();
+  
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<!-- Bootstrap toggle -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-toggle/3.6.1/bootstrap4-toggle.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.15/sweetalert2.css" />
+
+<link href="~/Content/css/bootstrap-select.min.css" rel="stylesheet" />
+<!-- Bootstrap seclect -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap-select.min.css" />
+<!-- Price Range Slider -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap-slider.min.css" />
+<!-- Bootstrap data table -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/dataTables.bootstrap4.min.css">
+<!-- Dropzone -->
+@*<link rel="stylesheet" type="text/css" href="~/Content/css/dropzone.css">*@
+<!-- Fonts -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/font.css" />
+<!-- Feather icon -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/feather.css" />
+
+<!-- Lc light box popup -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/lc_lightbox.css" />
+<!-- Magnific Popup -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/magnific-popup.min.css">
+<!-- Custom Scrollbar -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/m-custom-scrollbar.min.css" />
+<!-- Owl Carousel -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/owl.carousel.min.css">
+<!-- Slick Carousel -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/slick.min.css">
+<!-- Slick Theme -->
+<link rel="stylesheet" type="text/css" href="~/Content/css/slick-theme.css">
+
+<style type="text/css">
+    .spinner1 {
+        /*display: inline-block;*/
+        opacity: 0;
+        /*max-width: 0;*/
+        /*-webkit-transition: opacity 0.25s, max-width 0.45s;
+    -moz-transition: opacity 0.25s, max-width 0.45s;
+    -o-transition: opacity 0.25s, max-width 0.45s;
+    transition: opacity 0.25s, max-width 0.45s;*/ /* Duration fixed since we animate additional hidden width */
+    }
+
+    .has-spinner1.activeSpin {
+        cursor: progress;
+    }
+
+        .has-spinner1.activeSpin .spinner1 {
+            opacity: 1;
+            /*max-width: 50px;*/ /* More than it will ever come, notice that this affects on animation duration */
+        }
+</style>
+
+
+
+<button type="button" class="site-button" id="btnStartTrail" data-toggle="modal" data-target="#ThankYou" style="display:none;max-width: 300px !important;font-weight: 600;"><i class="fa fa-home"></i> Start 15 Days Trial</button>
+
+
+@*Modal*@
+<div class="modal fade" id="ThankYou" tabindex="-1" role="dialog" aria-labelledby="Thankyou" aria-hidden="true" style="display:none;" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Thankyou">Insurance List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <h2>Thank You</h2>
+                    <i class='far fa-3x fa-smile' style="color: #87b2d6"></i><br />
+                    <div style="margin-top: 20px;font-size:18px">
+                        Thank you for using our service. <br />
+                        Please select your interested insurance
+                    </div>
+                </div>
+                <hr />
+                <div style="width: 90%;margin: auto;border: none;">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            @{
+                                if (insuraceList != null)
+                                {
+
+                                    foreach (var item in insuraceList)
+                                    {
+                                        <label><input type="radio" name="insurances" style="margin-bottom:10px" id="rbtn_@item.iMnuId" value="@item.IPk_CovLicId" /> <b>@item.sMenuName</b></label><br />
+                                    }
+                                }
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" id="btnBuyNow"><i class="fa fa-shopping-cart"></i> Buy Now</button>
+                @*<button type="button" class="btn btn-secondary" onclick="clearAll(); gotoLogin();" data-dismiss="modal">Cancel</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Login Sign Up Modal -->
+<!-- JAVASCRIPT  FILES ========================================= -->
+<script src="/Content/js/jquery-3.6.0.min.js"></script><!-- JQUERY.MIN JS -->
+<script src="/Content/js/popper.min.js"></script><!-- POPPER.MIN JS -->
+<script src="/Content/js/bootstrap.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="/Content/js/bootstrap-select.min.js"></script><!-- BOOTSTRAP SELECT -->
+<script src="/Content/js/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
+<script src="/Content/js/magnific-popup.min.js"></script><!-- MAGNIFIC-POPUP JS -->
+<script src="/Content/js/waypoints.min.js"></script><!-- WAYPOINTS JS -->
+<script src="/Content/js/counterup.min.js"></script><!-- COUNTERUP JS -->
+<script src="/Content/js/waypoints-sticky.min.js"></script><!-- STICKY HEADER -->
+<script src="/Content/js/isotope.pkgd.min.js"></script><!-- MASONRY  -->
+
+<script src="/Content/js/owl.carousel.min.js"></script><!-- OWL  SLIDER  -->
+<script src="/Content/js/slick.min.js"></script><!-- OWL  SLIDER  -->
+
+<script src="/Content/js/theia-sticky-sidebar.js"></script><!-- STICKY SIDEBAR  -->
+<script src="/Content/js/m-custom-scrollbar.min.js"></script><!-- my account left panel scroller -->
+<script src="/Content/js/dropzone.js"></script><!-- Images upload -->
+
+<script src="/Content/js/bootstrap4-toggle.min.js"></script>
+<script src="/Content/js/jquery.dataTables.min.js"></script>
+<script src="/Content/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="/Content/js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
+<script src="/Content/js/lc_lightbox.lite.js"></script><!-- IMAGE POPUP -->
+<script src="/Content/js/bootstrap-slider.min.js"></script><!-- Form js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.15/sweetalert2.min.js"></script>
+<script src="~/Content/globalDomain.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        setTimeout(function () {
+
+            $('#btnStartTrail').click();
+
+        }, 2000);
+
+        $('#btnBuyNow').click(function () {
+            var insuranceSelect = $("input[name='insurances']:checked").val();
+          /*  alert(insuranceSelect)*/
+            buyPack('@pack', insuranceSelect);
+        });
+    });
+
+    function buyPack(packID, coverID) {
+        setTimeout(function () {
+            window.location.href = '@RegisterURL' + '?packID=' + packID +"&coverID="+coverID;
+        }, 1500);
+    }
+</script>

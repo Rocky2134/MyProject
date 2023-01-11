@@ -52,10 +52,18 @@ namespace MyProject.Modal
         public int IPk_CovLicId { get; set; }
         public int iqty { get; set; }
         public string sMenuName { get; set; }
+        public string iFk_LiceId { get; set; }
         public decimal Total_displayvalue { get; set; }
 
     }
-
+    public class PackInsuranceDetails
+    {
+        public decimal packageCost { get; set; }
+        public int iMnuId { get; set; }
+        public string sMenuName { get; set; }
+        public int IPk_CovLicId { get; set; }
+        public int iqty { get; set; }
+    }
     public class GlobalClass
     {
         public int id { get; set; }

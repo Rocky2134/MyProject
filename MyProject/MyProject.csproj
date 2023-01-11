@@ -261,6 +261,7 @@
     <Content Include="Views\Home\FormBuilderpage.cshtml" />
     <Content Include="Views\Home\Verification.cshtml" />
     <Content Include="Views\Home\getPackageData.cshtml" />
+    <Content Include="Views\Home\InsuranceSelect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

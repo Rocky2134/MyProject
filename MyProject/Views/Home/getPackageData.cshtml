@@ -11,7 +11,7 @@
         @{
 
             var i = 1;
-            foreach (var item in Model.Select(s => new { pakageID = s.iPk_PackId, packName = s.sPackName, featureAMT = s.dPackFeaAmt, functionAMT = s.dPackFunAmt, total = s.totalAmount, registration = s.iNumReg, validity = s.iValidityvalue, displayAMT = s.Total_displayvalue, validityName = s.iValidityIdName, accureType = s.iTypIdname }).Distinct().ToList())
+            foreach (var item in Model.Select(s => new { pakageID = s.iPk_PackId, packName = s.sPackName, featureAMT = s.dPackFeaAmt, functionAMT = s.dPackFunAmt, total = s.totalAmount, registration = s.iNumReg, validity = s.iValidityvalue, displayAMT = s.Total_displayvalue, validityName = s.iValidityIdName, accureType = s.iTypIdname,licenceId =s.iFk_LiceId }).Distinct().ToList())
             {
 
                 var image = "";
@@ -62,7 +62,7 @@
                     </div>
 
 
-                    <button class="sf-choose-plan-btn1" onclick="buyPack(@item.pakageID)">Buy Now</button>
+                    <button class="sf-choose-plan-btn1" onclick="buyPack(@item.pakageID,'@item.licenceId','@item.accureType')">Buy Now</button>
                 </div>
                 i++;
             }

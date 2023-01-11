@@ -35,6 +35,19 @@ namespace MyProject.Controllers
             ViewBag.UserType = data;
             return View();
         }
+        public ActionResult InsuranceSelect(int packId,string licenceId)
+        {
+           var insData =  DBOperation.PackageInsuranceDetails(packId);
+            ViewBag.packID = packId;
+            ViewBag.licence = licenceId;
+
+            var InsuList = JsonConvert.SerializeObject(insData.DATA);
+            var packInsu = JsonConvert.DeserializeObject<List<PackInsuranceDetails>>(InsuList);
+
+            ViewBag.insuranceData = packInsu;
+
+            return View();
+        }
         public ActionResult Verification()
         {
 
@@ -53,6 +66,17 @@ namespace MyProject.Controllers
         public JsonResult GetUserType()
         {
             var data = DBOperation.getUserType();
+
+            return new JsonResult
+            {
+                Data = data,
+                ContentEncoding = System.Text.Encoding.UTF8,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+        public JsonResult getPackdata(int userType)
+        {
+            var data = DBOperation.getPackageData(userType);
 
             return new JsonResult
             {

@@ -16,6 +16,8 @@ using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using System.Threading;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Web.Mvc;
 
 namespace MyProject.Helper
 {
@@ -186,6 +188,25 @@ namespace MyProject.Helper
             }
             return response;
         }
+
+        public static Response PackageInsuranceDetails(int PackID)
+        {
+            Response api_Response = new Response();
+
+            SqlParameter[] param = new SqlParameter[1];
+            param[0] = new SqlParameter("@packID", PackID);
+
+            DataSet ds = DBOperation.FillDataSet("[dbo].[USP_OPERATION_SelectInsuranceToBuy]", param);
+            if (ds != null && ds.Tables != null && ds.Tables[0].Rows.Count > 0)
+            {
+                api_Response.status = 1;
+                api_Response.message = "Packaged Details...";
+                api_Response.DATA = ds.Tables[0];
+
+            }
+            return api_Response;
+        }
+
 
         public static Response UpadteVerificationStatus(VerificationRequest modal)
         {
