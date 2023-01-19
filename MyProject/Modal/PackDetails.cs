@@ -52,10 +52,18 @@ namespace MyProject.Modal
         public int IPk_CovLicId { get; set; }
         public int iqty { get; set; }
         public string sMenuName { get; set; }
+        public string iFk_LiceId { get; set; }
         public decimal Total_displayvalue { get; set; }
 
     }
-
+    public class PackInsuranceDetails
+    {
+        public decimal packageCost { get; set; }
+        public int iMnuId { get; set; }
+        public string sMenuName { get; set; }
+        public int IPk_CovLicId { get; set; }
+        public int iqty { get; set; }
+    }
     public class GlobalClass
     {
         public int id { get; set; }
@@ -72,21 +80,21 @@ namespace MyProject.Modal
             {
                 id = 1,
                 backColor = "lightsteelblue",
-                imageURL= "Website/Content/images/pricing-bg-blue@2x.png" //"/Content/images/pricing-bg-blue@2x.png"
+                imageURL= "/Content/images/pricing-bg-blue@2x.png" //"/Content/images/pricing-bg-blue@2x.png"
             });
 
             Lst.Add(new GlobalClass
             {
                 id = 2,
                 backColor = "blanchedalmond",
-                imageURL = "Website/Content/images/pricing-bg-orange@2x.png" // "Content/images/pricing-bg-orange@2x.png"
+                imageURL = "/Content/images/pricing-bg-orange@2x.png" // "Content/images/pricing-bg-orange@2x.png"
             });
 
             Lst.Add(new GlobalClass
             {
                 id = 3,
                 backColor = "gainsboro",
-                imageURL = "Website/Content/images/pricing-bg-default@2x.png"// "Content/images/pricing-bg-default@2x.png"
+                imageURL = "/Content/images/pricing-bg-default@2x.png"// "Content/images/pricing-bg-default@2x.png"
             });
 
             return Lst;

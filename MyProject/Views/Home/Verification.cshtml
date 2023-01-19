@@ -64,11 +64,11 @@
 
 
 @*Modal*@
-<div class="modal fade" id="ThankYou" tabindex="-1" role="dialog" aria-labelledby="Thankyou" aria-hidden="true" style="display:none;" data-backdrop="static">
+<div class="modal fade" id="ThankYou" role="dialog" aria-labelledby="Thankyou" style="display:none;" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="Thankyou">Enter OTP</h5>
+        <div class="modal-content" style="-webkit-box-shadow: -28px 28px 28px -11px rgba(181,181,181,1); -moz-box-shadow: -28px 28px 28px -11px rgba(181,181,181,1); box-shadow: -28px 28px 28px -11px rgb(180 170 170); border-radius: 50px;">
+            <div class="modal-header" style="border-radius: 51px;background: #22b1db;">
+                <h5 class="modal-title" id="Thankyou" style="margin-left: 20px;color:white">Enter OTP</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -92,19 +92,19 @@
                                     <input type="text" class="form-control" oninput="numberOnly(this.id)" id="txtMobileOTP" placeholder="----" maxlength="4" style="width: 340px;">
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-primary" id="btnMverify" style="width: 140px;margin-left: -39px;-webkit-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);-moz-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);"> <i class='fa fa-check'></i> Verify</button>
+                                    <button type="button" class="btn btn-primary" id="btnMverify" style="background: #22b1db !important; width: 140px; margin-left: -39px; -webkit-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75); -moz-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75); box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75); "> <i class='fa fa-check'></i> Verify</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mb-5">
                             <div class="row" style="display: flex; align-items: end;">
                                 <div class="col-sm-8">
                                     <label class="form-label"><strong>Email OTP</strong></label>
                                     <input type="text" class="form-control" oninput="numberOnly(this.id)" id="txtEmailOTP" placeholder="----" maxlength="4" style="width: 340px;">
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-primary" id="btnEverify" style="width: 140px;margin-left: -39px;-webkit-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);-moz-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);"> <i class='fa fa-check'></i> Verify</button>
+                                    <button type="button" class="btn btn-primary" id="btnEverify" style="background: #22b1db !important; width: 140px; margin-left: -39px; -webkit-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75); -moz-box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75); box-shadow: inset -12px 4px 34px -4px rgba(0,0,0,0.75);"> <i class='fa fa-check'></i> Verify</button>
                                 </div>
                             </div>
                         </div>
@@ -113,11 +113,11 @@
 
                 </div>
             </div>
-            <div class="modal-footer">
+            <!--<div class="modal-footer">-->
 
                 @*<button type="button" class="btn btn-primary" onclick="clearAll(); gotoLogin();" data-dismiss="modal">OK</button>
                     <button type="button" class="btn btn-secondary" onclick="clearAll(); gotoLogin();" data-dismiss="modal">Cancel</button>*@
-            </div>
+            <!--</div>-->
         </div>
     </div>
 </div>
