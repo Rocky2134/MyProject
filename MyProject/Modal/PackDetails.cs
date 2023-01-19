@@ -80,21 +80,21 @@ namespace MyProject.Modal
             {
                 id = 1,
                 backColor = "lightsteelblue",
-                imageURL= "Website/Content/images/pricing-bg-blue@2x.png" //"/Content/images/pricing-bg-blue@2x.png"
+                imageURL= "/Content/images/pricing-bg-blue@2x.png" //"/Content/images/pricing-bg-blue@2x.png"
             });
 
             Lst.Add(new GlobalClass
             {
                 id = 2,
                 backColor = "blanchedalmond",
-                imageURL = "Website/Content/images/pricing-bg-orange@2x.png" // "Content/images/pricing-bg-orange@2x.png"
+                imageURL = "/Content/images/pricing-bg-orange@2x.png" // "Content/images/pricing-bg-orange@2x.png"
             });
 
             Lst.Add(new GlobalClass
             {
                 id = 3,
                 backColor = "gainsboro",
-                imageURL = "Website/Content/images/pricing-bg-default@2x.png"// "Content/images/pricing-bg-default@2x.png"
+                imageURL = "/Content/images/pricing-bg-default@2x.png"// "Content/images/pricing-bg-default@2x.png"
             });
 
             return Lst;
